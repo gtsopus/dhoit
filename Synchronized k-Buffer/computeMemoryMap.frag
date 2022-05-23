@@ -12,7 +12,6 @@ void main(){
 	//Ensure that sum is calculated only 1 time
 	if((uint(gl_FragCoord.y) == 0U) && (gl_FragCoord.x < COUNTERS)){
 		int id = int(gl_FragCoord.x);
-		int COUNTERS_2d = COUNTERS >> 1;
 
 		int  k = 0;
 
