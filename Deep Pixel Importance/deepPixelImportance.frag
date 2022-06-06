@@ -72,15 +72,13 @@ void main()
     	int R2 = 12;
     	int C2 = 12;
     
-    	for (int i = 0; i < R1; i++) {
-        	for (int j = 0; j < C2; j++) {
-            		rslt[j] = 0;
-            		for (int k = 0; k < R2; k++) {
-                		rslt[j] += input[i][k] * weights1[k][j];
-            		}
-            	rslt[j] = rslt[j] + bias1[j];
-        	}   
-   	}
+        for (int j = 0; j < C2; j++) {
+        	rslt[j] = 0;
+            	for (int k = 0; k < R2; k++) {
+                	rslt[j] += input[i][k] * weights1[k][j];
+		}
+		rslt[j] = rslt[j] + bias1[j];
+	}   
     
     	float rslt2[128];
     
@@ -90,31 +88,27 @@ void main()
     	C2 = 128;
 
     
-    	for (int i = 0; i < R1; i++) {
-        	for (int j = 0; j < C2; j++) {
-            		rslt2[j] = 0;
-            		for (int k = 0; k < R2; k++) {
-                		rslt2[j] += rslt[k] * weights2[k][j];
-            		}
-            	rslt2[j] = relu(rslt2[j] + bias2[j]);
-        	}
-    	}
+        for (int j = 0; j < C2; j++) {
+            	rslt2[j] = 0;
+            	for (int k = 0; k < R2; k++) {
+                	rslt2[j] += rslt[k] * weights2[k][j];
+            	}
+		rslt2[j] = relu(rslt2[j] + bias2[j]);
+	}
 
 	R1 = 1;
     	C1 = 128;
     	R2 = 128;
     	C2 = 64;
    
-    	for (int i = 0; i < R1; i++) {
-        	for (int j = 0; j < C2; j++) {
-            		rslt[j] = 0;
-            		for (int k = 0; k < R2; k++) {
-                		int index = k*64 + j;
-                		rslt[j] += weights[index]*rslt2[k];
-            		}
-            		rslt[j] = relu(z + bias3[j]);
-        	}
-    	}
+        for (int j = 0; j < C2; j++) {
+            	rslt[j] = 0;
+            	for (int k = 0; k < R2; k++) {
+                	int index = k*64 + j;
+                	rslt[j] += weights[index]*rslt2[k];
+            	}
+            	rslt[j] = relu(z + bias3[j]);
+        }
 
     
     	R1 = 1;
@@ -122,15 +116,13 @@ void main()
     	R2 = 64;
     	C2 = 1;
     
-    	for (int i = 0; i < R1; i++) {
-        	for (int j = 0; j < C2; j++) {
-            		rslt2[j] = 0;
-            		for (int k = 0; k < R2; k++) {
-                		rslt2[j] += rslt[k] * weights4[k][j];
-            		}
-            		rslt2[j] = sigmoid(rslt2[j] + bias4[j]);
-        	} 
-    	}
+        for (int j = 0; j < C2; j++) {
+            	rslt2[j] = 0;
+            	for (int k = 0; k < R2; k++) {
+                	rslt2[j] += rslt[k] * weights4[k][j];
+            	}
+            	rslt2[j] = sigmoid(rslt2[j] + bias4[j]);
+        } 
 
     	float imp = rslt2[0];
     	float total_importance = max(0,imp);
