@@ -50,7 +50,6 @@ void main()
 	if (pixelTotalLayers == 0U) 
 	{
         	discard;
-		return;
 	}
 	
 	//Load input features
