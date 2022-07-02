@@ -66,7 +66,6 @@ void main()
 
     	float rslt[128];
  
-    	int R1 = 1;
     	int C1 = 12;
     	int R2 = 12;
     	int C2 = 12;
@@ -81,7 +80,6 @@ void main()
     
     	float rslt2[64];
     
-    	R1 = 1;
     	C1 = 12;
     	R2 = 12;
     	C2 = 128;
@@ -96,7 +94,6 @@ void main()
 		rslt2[j] = relu(z + bias2[j]);
 	}
 
-	R1 = 1;
     	C1 = 128;
     	R2 = 128;
     	C2 = 64;
@@ -112,7 +109,6 @@ void main()
         }
 
     
-    	R1 = 1;
     	C1 = 64;
     	R2 = 64;
     	C2 = 1;
