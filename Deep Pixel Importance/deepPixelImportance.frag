@@ -80,7 +80,7 @@ void main()
 		rslt[j] = rslt[j] + bias1[j];
 	}   
     
-    	float rslt2[128];
+    	float rslt2[64];
     
     	R1 = 1;
     	C1 = 12;
@@ -89,11 +89,12 @@ void main()
 
     
         for (int j = 0; j < C2; j++) {
+		float z = 0.0f;
             	rslt2[j] = 0;
             	for (int k = 0; k < R2; k++) {
-                	rslt2[j] += rslt[k] * weights2[k][j];
+                	z += z * weights2[k][j];
             	}
-		rslt2[j] = relu(rslt2[j] + bias2[j]);
+		rslt2[j] = relu(z + bias2[j]);
 	}
 
 	R1 = 1;
@@ -103,9 +104,10 @@ void main()
    
         for (int j = 0; j < C2; j++) {
             	rslt[j] = 0;
+		float z = 0.0f;
             	for (int k = 0; k < R2; k++) {
                 	int index = k*64 + j;
-                	rslt[j] += weights[index]*rslt2[k];
+                	z += weights[index]*rslt2[k];
             	}
             	rslt[j] = relu(z + bias3[j]);
         }
@@ -118,10 +120,11 @@ void main()
     
         for (int j = 0; j < C2; j++) {
             	rslt2[j] = 0;
+		float z = 0.0f;
             	for (int k = 0; k < R2; k++) {
-                	rslt2[j] += rslt[k] * weights4[k][j];
+                	z += rslt[k] * weights4[k][j];
             	}
-            	rslt2[j] = sigmoid(rslt2[j] + bias4[j]);
+            	rslt2[j] = sigmoid(z + bias4[j]);
         } 
 
     	float imp = rslt2[0];
@@ -136,7 +139,7 @@ void main()
 		atomicCounterIncrement(total_counter);	
 	}
 
-    	//clear feature texes
+    	//clear feature images
     	imageStore(zMinMax,ivec2(gl_FragCoord.xy),vec4(0.0f));
     	imageStore(featureTex,ivec2(gl_FragCoord.xy),vec4(0.0f));
 
