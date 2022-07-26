@@ -137,5 +137,6 @@ void main()
     	//clear feature images
     	imageStore(zMinMax,ivec2(gl_FragCoord.xy),vec4(0.0f));
     	imageStore(featureTex,ivec2(gl_FragCoord.xy),vec4(0.0f));
+	imageStore(nearest_featureTex,ivec2(gl_FragCoord.xy),uvec4(0));
 
 }
