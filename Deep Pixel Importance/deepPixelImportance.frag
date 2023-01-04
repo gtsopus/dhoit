@@ -60,7 +60,7 @@ void main()
     	vec4 zFeaturesAvg = imageLoad(featureTex,ivec2(gl_FragCoord.xy));
     	vec4 zFeaturesNearest = unpackUnorm4x8(uint(imageLoad(nearest_featureTex,ivec2(gl_FragCoord.xy)).r));
 
-	float input[1][12] = {{fragmentsToTotalFragments,reservedPercentage,zFeatures.r,zFeatures.g,zFeatures.b,zFeatures.a,zFeaturesAvg.r,zFeaturesAvg.g,zFeaturesAvg.b,zFeaturesNearest.r,zFeaturesNearest.g,zFeaturesNearest.b}};
+	float inp[1][12] = {{fragmentsToTotalFragments,reservedPercentage,zFeatures.r,zFeatures.g,zFeatures.b,zFeatures.a,zFeaturesAvg.r,zFeaturesAvg.g,zFeaturesAvg.b,zFeaturesNearest.r,zFeaturesNearest.g,zFeaturesNearest.b}};
 
 	//Get NN output (importance)	
 
@@ -73,7 +73,7 @@ void main()
         for (int j = 0; j < C2; j++) {
         	rslt[j] = 0;
             	for (int k = 0; k < R2; k++) {
-                	rslt[j] += input[i][k] * weights1[k][j];
+                	rslt[j] += inp[0][k] * weights1[k][j];
 		}
 		rslt[j] = rslt[j] + bias1[j];
 	}   
